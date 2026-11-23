@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Monthsary!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --night: #4c1d95;
+    --plum: #7c3aed;
+    --blush: #ffd9e2;
+    --rose: #ff6f91;
+    --rose-deep: #e0436b;
+    --gold: #ffcf8a;
+    --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --sans: "Quicksand", system-ui, -apple-system, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { background: var(--night); min-height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; min-height: 100vh; min-height: 100dvh; overflow-x: hidden;
+    background: radial-gradient(ellipse at 50% 30%, var(--plum), var(--night) 70%);
+    color: var(--blush); font-family: var(--sans);
+    display: grid; place-items: center; text-align: center;
+  }
+  main { padding: 24px; max-width: 34rem; width: 100%; }
+  .heart { width: 84px; height: 84px; fill: var(--rose); animation: beat 1.3s ease-in-out infinite; filter: drop-shadow(0 0 18px rgba(255,111,145,.6)); }
+  @keyframes beat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.14); } 30% { transform: scale(1); } 45% { transform: scale(1.08); } }
+  h1 { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: clamp(2.4rem, 9vw, 4rem); line-height: 1.05; margin: 20px 0 10px; color: #fff; }
+  .sub { font-size: 1.05rem; line-height: 1.6; color: var(--blush); margin: 0 auto 8px; max-width: 28rem; }
+  .ask { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.5rem, 5vw, 2rem); color: var(--gold); margin: 26px 0 22px; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; min-height: 72px; }
+  button { font-family: var(--sans); font-weight: 700; font-size: 1.05rem; border: 0; border-radius: 999px; padding: 14px 30px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  #yes { background: var(--rose); color: #2a1230; font-size: calc(1.05rem * var(--grow, 1)); padding: calc(14px * var(--grow, 1)) calc(30px * var(--grow, 1)); box-shadow: 0 8px 24px rgba(255,111,145,.35); transition: font-size .2s, padding .2s; }
+  #yes:hover { background: #ff86a3; }
+  #no { background: transparent; color: var(--blush); border: 2px solid rgba(255,217,226,.5); }
+  #no.loose { position: fixed; z-index: 5; transition: left .25s ease, top .25s ease; }
+  .answer { display: none; }
+  .answer h2 { font-family: var(--serif); font-style: italic; font-size: clamp(2.2rem, 8vw, 3.4rem); margin: 18px 0 10px; color: #fff; }
+  body.yes .ask-view { display: none; }
+  body.yes .answer { display: block; }
+  .confetti { position: fixed; top: -40px; pointer-events: none; font-size: 24px; animation: fall linear forwards; z-index: 10; }
+  @keyframes fall { to { transform: translateY(115vh) rotate(360deg); opacity: .9; } }
+  h1, .sub, .ask { overflow-wrap: break-word; }
+  @media (max-width: 480px) {
+    main { padding: 20px 16px; }
+    .heart { width: 64px; height: 64px; }
+    .sub { font-size: .98rem; }
+    .buttons { gap: 12px; }
+    button { padding: 12px 24px; }
+  }
+  @media (max-height: 520px) {
+    .heart { width: 48px; height: 48px; }
+    h1 { margin: 10px 0 6px; }
+    .ask { margin: 14px 0 12px; }
+  }
+  @media (min-width: 900px) {
+    main { max-width: 40rem; }
+    .heart { width: 100px; height: 100px; }
+    .sub { font-size: 1.15rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .heart { animation: none; }
+    #no.loose { transition: none; }
+    .confetti { animation-duration: 0.01s !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2 0 3.5 1 5.3 3 1.8-2 3.3-3 5.3-3 3.700 0 5.800 3.700 4.300 7.200C19.500 16.400 12 21 12 21z"/></svg>
+
+  <div class="ask-view">
+    <h1 id="title">Happy Monthsary, my love</h1>
+    <p class="sub" id="note"></p>
+    <p class="ask">Will you go on a date with me?</p>
+    <div class="buttons">
+      <button id="yes" type="button">Yes</button>
+      <button id="no" type="button">No</button>
+    </div>
+  </div>
+
+  <div class="answer" role="status" aria-live="polite">
+    <h2>Yay! It’s a date</h2>
+    <p class="sub" id="yesNote"></p>
+  </div>
+</main>
+
+<script>
+  // ✏️ Edit these to make it yours
+  const CONFIG = {
+    herName: "Lang",
+    yourName: "Me",
+    startDate: "2026-08-23",   // the day you became a couple (YYYY-MM-DD)
+    yesMessage: "I can’t wait. Wear something comfy, I’ll take care of the rest."
+  };
+
+  const start = new Date(CONFIG.startDate + "T00:00:00");
+  const now = new Date();
+  let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+  if (now.getDate() < start.getDate()) months--;
+  months = Math.max(months, 1);
+
+  const ord = n => n + (["th", "st", "nd", "rd"][(n % 100 > 10 && n % 100 < 14) ? 0 : (n % 10 < 4 ? n % 10 : 0)]);
+  document.getElementById("title").textContent = "Happy " + ord(months) + " monthsary " + CONFIG.herName;
+  document.getElementById("note").textContent =
+    "Another month with you, and every one of them feels like my favorite. Thank you for being you.";
+  document.getElementById("yesNote").textContent = CONFIG.yesMessage + " — " + CONFIG.yourName;
+
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const labels = ["No", "Are you sure?", "Really?", "Think again", "Nice try", "Not today"];
+  let dodges = 0, ptr = { x: -999, y: -999 };
+
+  addEventListener("pointermove", e => { ptr = { x: e.clientX, y: e.clientY }; });
+
+  function dodge(e) {
+    if (e && e.cancelable) e.preventDefault();
+    no.classList.add("loose");
+    const pad = 12;
+    const w = no.offsetWidth, h = no.offsetHeight;
+    const maxX = Math.max(pad, innerWidth - w - pad);
+    const maxY = Math.max(pad, innerHeight - h - pad);
+    let x, y, tries = 0;
+    do {
+      x = pad + Math.random() * (maxX - pad);
+      y = pad + Math.random() * (maxY - pad);
+      tries++;
+    } while (tries < 25 && Math.hypot(x + w / 2 - ptr.x, y + h / 2 - ptr.y) < 160);
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+
+    dodges++;
+    no.textContent = labels[dodges % labels.length];
+    yes.style.setProperty("--grow", Math.min(1 + dodges * 0.1, 1.9));
+  }
+
+  ["pointerenter", "touchstart", "focus"].forEach(ev => no.addEventListener(ev, dodge, { passive: false }));
+  no.addEventListener("click", dodge);
+  addEventListener("resize", () => {
+    if (no.classList.contains("loose")) dodge();
+  });
+
+  yes.addEventListener("click", () => {
+    document.body.classList.add("yes");
+    no.style.display = "none";
+    const icons = ["💖", "💗", "💕", "🌹", "✨"];
+    for (let i = 0; i < 45; i++) {
+      const s = document.createElement("span");
+      s.className = "confetti";
+      s.textContent = icons[i % icons.length];
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.animationDuration = 2.5 + Math.random() * 2.5 + "s";
+      s.style.animationDelay = Math.random() * 1.2 + "s";
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 7000);
+    }
+  });
+</script>
+</body>
+</html>
